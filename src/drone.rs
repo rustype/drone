@@ -20,27 +20,11 @@ impl Drone<Idle> {
     }
 
     pub fn take_off(self) -> Drone<Hovering> {
-        Drone::<Hovering>::new_from_idle(self)
+        Drone::<Hovering>::from(self)
     }
 }
 
 impl Drone<Hovering> {
-    fn new_from_idle(drone: Drone<Idle>) -> Self {
-        Self {
-            state: PhantomData,
-            x: drone.x,
-            y: drone.y,
-        }
-    }
-
-    fn new_from_flying(drone: Drone<Flying>) -> Self {
-        Self {
-            state: PhantomData,
-            x: drone.x,
-            y: drone.y,
-        }
-    }
-
     fn land(self) -> Drone<Idle> {
         Drone::<Idle>::new()
     }
@@ -50,20 +34,33 @@ impl Drone<Hovering> {
     // however, if the state transitions inside the function,
     // we are required to consume and return
     fn move_to(self, x: f32, y: f32) -> Drone<Hovering> {
-        let drone = Drone::<Flying>::new(self);
+        let drone = Drone::<Flying>::from(self);
         drone.fly(x, y)
     }
 }
 
-impl Drone<Flying> {
-    fn new(drone: Drone<Hovering>) -> Self {
+// This implements a bidirectional conversion from Drone<Idle> to Drone<Hovering>
+impl From<Drone<Idle>> for Drone<Hovering> {
+    fn from(drone: Drone<Idle>) -> Self {
         Self {
-            state: PhantomData,
-            x: drone.x,
+            x : drone.x,
             y: drone.y,
+            state: PhantomData
         }
     }
+}
 
+impl From<Drone<Flying>> for Drone<Hovering> {
+    fn from(drone: Drone<Flying>) -> Self {
+        Self {
+            x: drone.x,
+            y: drone.y,
+            state: PhantomData
+        }
+    }
+}
+
+impl Drone<Flying> {
     fn hasArrived(&self, x: f32, y: f32) -> bool {
         return self.x == x && self.y == y;
     }
@@ -71,7 +68,17 @@ impl Drone<Flying> {
     fn fly(mut self, x: f32, y: f32) -> Drone<Hovering> {
         self.x = x;
         self.y = y;
-        Drone::<Hovering>::new_from_flying(self)
+        Drone::<Hovering>::from(self)
+    }
+}
+
+impl From<Drone<Hovering>> for Drone<Flying> {
+    fn from(drone: Drone<Hovering>) -> Self {
+        Self {
+            x: drone.x,
+            y: drone.y,
+            state: PhantomData
+        }
     }
 }
 

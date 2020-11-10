@@ -1,3 +1,5 @@
+mod drone;
+
 use anyhow::{anyhow, Result};
 
 fn main() {}

@@ -122,7 +122,7 @@ mod test_drone {
     #[test]
     fn drone_does_not_fly_idle() {
         let mut drone = Drone::new();
-        assert!(drone.move_to(10.0, 10.0).is_err());
+        assert!(drone.move_to(10.0, 10.0).is_err()); // comptime error: "move_to" is not a member of type Idle
         assert_eq!(drone.x, 0.0);
         assert_eq!(drone.y, 0.0);
     }
@@ -131,7 +131,7 @@ mod test_drone {
     fn drone_does_not_land_idle() {
         with_drone! {
             drone {
-                assert!(drone.land().is_err());
+                assert!(drone.land().is_err()); // comptime error: "land" is not a member of type Idle
                 assert_eq!(drone.x, 0.0);
                 assert_eq!(drone.y, 0.0);
             }
@@ -143,7 +143,7 @@ mod test_drone {
         with_drone! {
             drone {
                 assert!(drone.take_off().is_ok());
-                assert!(drone.take_off().is_err());
+                assert!(drone.take_off().is_err()); // comptime error: "take_off" is not a member of type Hovering
             }
         }
     }

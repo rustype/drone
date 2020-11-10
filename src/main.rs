@@ -17,6 +17,7 @@ pub struct Drone {
 }
 
 impl Drone {
+    // #[out(Idle)]
     pub fn new() -> Self {
         Self {
             state: DroneState::Idle,
@@ -25,6 +26,7 @@ impl Drone {
         }
     }
 
+    // #[in(Idle), out(Hovering)]
     pub fn take_off(&mut self) -> Result<()> {
         match self.state {
             DroneState::Idle => {
@@ -35,6 +37,7 @@ impl Drone {
         }
     }
 
+    // #[in=(Hovering, Flying), out=(Hovering)]
     pub fn move_to(&mut self, x: f32, y: f32) -> Result<()> {
         match self.state {
             DroneState::Idle => Err(anyhow!("drone has not taken off")),
@@ -49,16 +52,19 @@ impl Drone {
         }
     }
 
+    // #[in=(Flying)]
     pub fn has_arrived(&self, x: f32, y: f32) -> bool {
         self.x == x && self.y == y
     }
 
+    // #[in=(Hovering, Flying)]
     fn fly(&mut self, x: f32, y: f32) {
         // for now, our drone teleports!
         self.x = x;
         self.y = y;
     }
 
+    // #[in=(Hovering), out=(Flying)]
     pub fn land(&mut self) -> Result<()> {
         match self.state {
             DroneState::Flying => Err(anyhow!("drone is currently flying")),

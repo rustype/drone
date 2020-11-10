@@ -114,7 +114,7 @@ mod drone_test {
     #[test]
     fn drone_does_not_fly_idle() {
         let drone = Drone::<Idle>::new();
-        // drone.move_to(10.0, 10.0).is_err(); // comptime error: "move_to" is not a member of type Idle
+        // drone.move_to(10.0, 10.0); // comptime error: "move_to" is not a member of type Idle
         assert_eq!(drone.x, 0.0);
         assert_eq!(drone.y, 0.0);
     }

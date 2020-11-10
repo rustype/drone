@@ -38,9 +38,19 @@ impl Drone<Idle> {
     }
 }
 
+impl From<Drone<Hovering>> for Drone<Idle> {
+    fn from(drone: Drone<Hovering>) -> Self {
+        Self {
+            x: drone.x,
+            y: drone.y,
+            state: PhantomData,
+        }
+    }
+}
+
 impl Drone<Hovering> {
     fn land(self) -> Drone<Idle> {
-        Drone::<Idle>::new()
+        Drone::<Idle>::from(self)
     }
 
     // &self == self -> Self

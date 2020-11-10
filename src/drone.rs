@@ -1,14 +1,21 @@
 use std::marker::PhantomData;
+pub trait DroneState {}
 
-pub struct Idle;
-pub struct Hovering;
-pub struct Flying;
-
-pub struct Drone<State> {
+pub struct Drone<State>
+where
+    State: DroneState,
+{
     x: f32,
     y: f32,
     state: PhantomData<State>,
 }
+
+pub struct Idle;
+impl DroneState for Idle {}
+pub struct Hovering;
+impl DroneState for Hovering {}
+pub struct Flying;
+impl DroneState for Flying {}
 
 impl Drone<Idle> {
     pub fn new() -> Self {
@@ -116,3 +123,7 @@ mod drone_test {
         assert_eq!(drone.y, 0.0);
     }
 }
+
+// struct NotDroneState;
+
+// impl Drone<NotDroneState> {} // NotDroneState does not satisfy trait DroneState

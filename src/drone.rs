@@ -43,9 +43,9 @@ impl Drone<Hovering> {
 impl From<Drone<Idle>> for Drone<Hovering> {
     fn from(drone: Drone<Idle>) -> Self {
         Self {
-            x : drone.x,
+            x: drone.x,
             y: drone.y,
-            state: PhantomData
+            state: PhantomData,
         }
     }
 }
@@ -55,7 +55,7 @@ impl From<Drone<Flying>> for Drone<Hovering> {
         Self {
             x: drone.x,
             y: drone.y,
-            state: PhantomData
+            state: PhantomData,
         }
     }
 }
@@ -77,7 +77,7 @@ impl From<Drone<Hovering>> for Drone<Flying> {
         Self {
             x: drone.x,
             y: drone.y,
-            state: PhantomData
+            state: PhantomData,
         }
     }
 }
@@ -103,10 +103,7 @@ mod drone_test {
 
     #[test]
     fn drone_flies() {
-        let drone = Drone::<Idle>::new();
-        let drone = drone.take_off();
-        let drone = drone.move_to(-5.0, -5.0);
-        let drone = drone.land();
+        let drone = Drone::<Idle>::new().take_off().move_to(-5.0, -5.0).land();
         assert_eq!(drone.x, -5.0);
         assert_eq!(drone.y, -5.0);
     }

@@ -85,7 +85,7 @@ impl From<Drone<Flying>> for Drone<Hovering> {
 }
 
 impl Drone<Flying> {
-    fn hasArrived(&self, x: f32, y: f32) -> bool {
+    fn has_arrived(&self, x: f32, y: f32) -> bool {
         return self.x == x && self.y == y;
     }
 

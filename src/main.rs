@@ -1,5 +1,6 @@
 mod drone;
 mod ref_drone;
+mod macro_drone;
 
 use anyhow::{anyhow, Result};
 

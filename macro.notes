@@ -1,0 +1,34 @@
+macro! {
+    Initial -> Nextable | Finished
+    Nextable -> Nextable | Finished
+    Finished -> End
+}
+
+
+macro! { (Iterator)
+    Initial -(hasNext)> Nextable | Finished
+    Nextable -(hasNext)> Nextable | Finished
+    Finished -> End
+}
+
+struct Initial;
+struct Nextable;
+struct Finished;
+
+struct Iterator<State> {
+
+}
+
+impl Iterator<Initial> {
+    hasNext
+    next
+}
+
+impl Iterator<Nextable> {
+    hasNext
+    next
+}
+
+let i = Iterator...
+let i = i.hasNext -> hasNext!(i)
+let i = i.next

@@ -11,4 +11,9 @@ name = "drone"
 version = "0.1.0"
 dependencies = [
  "anyhow",
+ "typestates",
 ]
+
+[[package]]
+name = "typestates"
+version = "0.1.2-alpha"

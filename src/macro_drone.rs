@@ -26,9 +26,9 @@ impl Drone<Idle> {
 impl From<Drone<Hovering>> for Drone<Idle> {
     fn from(drone: Drone<Hovering>) -> Self {
         Self {
+            __state: PhantomData,
             x: drone.x,
             y: drone.y,
-            __state: PhantomData,
         }
     }
 }
@@ -52,9 +52,9 @@ impl Drone<Hovering> {
 impl From<Drone<Idle>> for Drone<Hovering> {
     fn from(drone: Drone<Idle>) -> Self {
         Self {
+            __state: PhantomData,
             x: drone.x,
             y: drone.y,
-            __state: PhantomData,
         }
     }
 }
@@ -62,9 +62,9 @@ impl From<Drone<Idle>> for Drone<Hovering> {
 impl From<Drone<Flying>> for Drone<Hovering> {
     fn from(drone: Drone<Flying>) -> Self {
         Self {
+            __state: PhantomData,
             x: drone.x,
             y: drone.y,
-            __state: PhantomData,
         }
     }
 }
@@ -84,9 +84,9 @@ impl Drone<Flying> {
 impl From<Drone<Hovering>> for Drone<Flying> {
     fn from(drone: Drone<Hovering>) -> Self {
         Self {
+            __state: PhantomData,
             x: drone.x,
             y: drone.y,
-            __state: PhantomData,
         }
     }
 }

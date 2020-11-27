@@ -1,9 +1,9 @@
 use std::marker::PhantomData;
 
-use typestates::typestate;
+use typestate::typestate;
 
 typestate!(
-    strict pub Drone [Idle, Hovering, Flying] {
+    strict pub Drone <DroneState : StateSet> (state_mod::StateLimit) [Idle, Hovering, Flying] {
         x: f32,
         y: f32
     }

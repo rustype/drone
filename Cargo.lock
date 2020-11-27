@@ -11,9 +11,11 @@ name = "drone"
 version = "0.1.0"
 dependencies = [
  "anyhow",
- "typestates",
+ "typestate",
 ]
 
 [[package]]
-name = "typestates"
-version = "0.1.2-alpha"
+name = "typestate"
+version = "0.1.3-alpha"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a95f542ce3a47ac6509a8e6080ed4cdc1e2570982da347afec0541822dc8c0c8"
